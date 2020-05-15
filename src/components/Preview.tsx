@@ -50,27 +50,6 @@ const Item = styled.div<{ select?: boolean }>`
   background: ${(props) => (props.select ? '#E3F2FD' : 'none')};
 `;
 
-const elements = {
-  p: (props: boolean) => {
-    return props ? <p>文字を表示します</p> : <p>文字の表示</p>;
-  },
-  color: false,
-  img: false,
-  link: false,
-  inline: false,
-  jsColor: false,
-  jQColor: false,
-  bColor: false,
-  bText: false,
-  fAlert: false,
-  mAlert: false,
-  iText: false,
-  bool: false,
-  loop: false,
-  obj: false,
-  ajax: false,
-};
-
 const Preview: React.FC = () => {
   const [color1, setColor1] = React.useState(true);
   const [text1, setText1] = React.useState(true);
@@ -112,9 +91,7 @@ const Preview: React.FC = () => {
           onClick={() => {
             setSelects({ ...s, p: !s.p });
           }}
-        >
-          {elements.p(s.p)}
-        </Item>
+        ></Item>
         <Item
           select={s.color}
           onClick={() => {
