@@ -1,8 +1,9 @@
-import React, { Children } from 'react';
-import ramen from '../img/ramen.png';
-import styled from 'styled-components';
-import fetchJsonp from 'fetch-jsonp';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import React, { Children } from "react";
+import ramen from "../img/ramen.png";
+import styled from "styled-components";
+import fetchJsonp from "fetch-jsonp";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import { FormControl } from "@material-ui/core";
 
 interface zipResponseResult {
   address1: string; //"東京都"
@@ -23,9 +24,10 @@ interface zipResponse {
 
 const Page = styled.div`
   padding: 0.5rem;
+  margin: 0;
   display: flex;
   justify-content: space-around;
-  min-height: calc(100vh - 3rem);
+  min-height: calc(100vh - 5rem);
   & * {
     margin: 0;
     padding: 0;
@@ -44,11 +46,11 @@ const Item = styled.div<{ select?: boolean }>`
   padding: 1rem 0 1rem 0;
   border: solid #bdbdbd;
   border-width: 0 0 1px 0;
-  background: ${(props) => (props.select ? '#E3F2FD' : 'none')};
+  background: ${(props) => (props.select ? "#E3F2FD" : "none")};
 `;
 
 const Icon = styled(InfoOutlinedIcon)<{ select?: boolean }>`
-  color: ${(props) => (props.select ? 'gray' : 'black')};
+  color: ${(props) => (props.select ? "gray" : "black")};
   position: absolute;
   top: 0;
   left: 0;
@@ -68,13 +70,13 @@ const Preview: React.FC = () => {
   const [color1, setColor1] = React.useState(true);
   const [text1, setText1] = React.useState(true);
   const text1Data = {
-    true: '変更前のテキスト',
-    false: 'クリックされた',
+    true: "変更前のテキスト",
+    false: "クリックされた",
   };
-  const [input1, setInput1] = React.useState('ユーザーの入力');
+  const [input1, setInput1] = React.useState("ユーザーの入力を表示");
   const [bool1, setBool1] = React.useState(true);
-  const [zip, setZip] = React.useState('1670043');
-  const [address, setAddress] = React.useState('東京都杉並区上荻');
+  const [zip, setZip] = React.useState("1670043");
+  const [address, setAddress] = React.useState("東京都杉並区上荻");
   const [h, setH] = React.useState<IH>({
     p: false,
     color: false,
@@ -106,17 +108,32 @@ const Preview: React.FC = () => {
   });
 
   const onTitleHTMLClick = () => {
-    // if (!titleClick.html) {
-    //   setH({ ...h });
-    //   let result: IH = { ...h };
-    //   for (let key in result) {
-    //     result[key] = true;
-    //   }
-    //   setTitleClick({ ...titleClick, html: true });
-    // } else {
-    //   setSelects({ ...s, p: false, color: false, img: false, link: false, inline: false });
-    //   setTitleClick({ ...titleClick, html: false });
-    // }
+    if (!titleClick.html) {
+      setH({
+        p: true,
+        color: true,
+        img: true,
+        link: true,
+        inline: true,
+      });
+
+      // let result = { ...h };
+      // for (const key in h) {
+      //   result[key] = true;
+      // }
+      // setH(result);
+
+      setTitleClick({ ...titleClick, html: true });
+    } else {
+      setH({
+        p: false,
+        color: false,
+        img: false,
+        link: false,
+        inline: false,
+      });
+      setTitleClick({ ...titleClick, html: false });
+    }
   };
 
   const onTitleJSClick = () => {
@@ -178,7 +195,11 @@ const Preview: React.FC = () => {
               setH({ ...h, color: !h.color });
             }}
           />
-          {h.color ? <p>文字色を指定する</p> : <p style={{ color: '#FFC107' }}>テキスト</p>}
+          {h.color ? (
+            <p>文字色を指定する</p>
+          ) : (
+            <p style={{ color: "#FFC107" }}>テキスト</p>
+          )}
         </Item>
 
         <Item select={h.img}>
@@ -188,7 +209,11 @@ const Preview: React.FC = () => {
               setH({ ...h, img: !h.img });
             }}
           />
-          {h.img ? <p>画像を表示する</p> : <img style={{ width: '10rem' }} src={ramen} />}
+          {h.img ? (
+            <p>画像を表示する</p>
+          ) : (
+            <img style={{ width: "10rem" }} src={ramen} />
+          )}
         </Item>
 
         <Item select={h.link}>
@@ -221,8 +246,8 @@ const Preview: React.FC = () => {
             <p>インライン要素にそれぞれ背景色を指定する</p>
           ) : (
             <>
-              <span style={{ background: '#ffcdd2' }}>インライン</span>
-              <span style={{ background: '#C5CAE9' }}>要素</span>
+              <span style={{ background: "#ffcdd2" }}>インライン</span>
+              <span style={{ background: "#C5CAE9" }}>要素</span>
             </>
           )}
         </Item>
@@ -240,7 +265,11 @@ const Preview: React.FC = () => {
               setSelects({ ...s, jsColor: !s.jsColor });
             }}
           />
-          {s.jsColor ? <p>JSから色を変更する</p> : <p style={{ color: '#FFC107' }}>テキスト</p>}
+          {s.jsColor ? (
+            <p>JSから色を変更する</p>
+          ) : (
+            <p style={{ color: "#FFC107" }}>テキスト</p>
+          )}
         </Item>
 
         <Item select={s.jQColor}>
@@ -253,7 +282,7 @@ const Preview: React.FC = () => {
           {s.jQColor ? (
             <p>jQueryを使用して色を変える</p>
           ) : (
-            <p style={{ color: '#FFC107' }}>テキスト</p>
+            <p style={{ color: "#FFC107" }}>テキスト</p>
           )}
         </Item>
 
@@ -268,7 +297,7 @@ const Preview: React.FC = () => {
             <p>ボタンをクリックして色を変える</p>
           ) : (
             <>
-              <p style={color1 ? { color: '#4CAF50' } : {}}>テキスト</p>
+              <p style={color1 ? { color: "#4CAF50" } : {}}>テキスト</p>
               <button
                 onClick={() => {
                   setColor1(!color1);
@@ -317,7 +346,7 @@ const Preview: React.FC = () => {
               <p>アラート</p>
               <button
                 onClick={() => {
-                  alert('ボタンがクリックされました');
+                  alert("ボタンがクリックされました");
                 }}
               >
                 Button
@@ -340,7 +369,7 @@ const Preview: React.FC = () => {
               <p>アラート</p>
               <button
                 onClick={() => {
-                  alert('ボタンがクリックされました');
+                  alert("ボタンがクリックされました");
                 }}
               >
                 Button
@@ -380,8 +409,8 @@ const Preview: React.FC = () => {
           />
           {s.bool ? (
             <>
-              <p>変数 bool を宣言。ボタンをクリックで True, False と切り替える</p>
-              <p>変数 bool の値を表示する</p>
+              <p>boolean型の変数 bool を作成</p>
+              <p>変数boolの値を表示する。if文で表示を切り替える</p>
             </>
           ) : (
             <>
@@ -454,14 +483,18 @@ const Preview: React.FC = () => {
               />
               <button
                 onClick={() => {
-                  fetchJsonp(`https://zip-cloud.appspot.com/api/search?zipcode=${zip}`)
+                  fetchJsonp(
+                    `https://zip-cloud.appspot.com/api/search?zipcode=${zip}`
+                  )
                     .then((res) => {
                       return res.json();
                     })
                     .then((data: zipResponse) => {
                       console.log(data);
                       const result = data.results[0];
-                      setAddress(result.address1 + result.address2 + result.address3);
+                      setAddress(
+                        result.address1 + result.address2 + result.address3
+                      );
                     })
                     .catch((err) => {
                       console.log(err);
