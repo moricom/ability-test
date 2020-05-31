@@ -58,13 +58,37 @@ const Icon = styled(InfoOutlinedIcon)<{ select?: boolean }>`
   height: 1rem;
 `;
 
-interface IH {
+interface IHTML {
   p: boolean;
   color: boolean;
   img: boolean;
   link: boolean;
   inline: boolean;
 }
+
+interface IJS {
+  jsColor: boolean;
+  jQColor: boolean;
+  bColor: boolean;
+  bText: boolean;
+  fAlert: boolean;
+  mAlert: boolean;
+  iText: boolean;
+  bool: boolean;
+  loop: boolean;
+  obj: boolean;
+}
+
+interface IAjax {
+  ajax: boolean;
+}
+
+const toggleHelpGroup = (target: IHTML | IJS | IAjax, value: boolean) => {
+  return Object.assign(
+    {},
+    ...Object.entries(target).map(([key, _]) => ({ [key]: value }))
+  );
+};
 
 const Preview: React.FC = () => {
   const [color1, setColor1] = React.useState(true);
@@ -77,14 +101,14 @@ const Preview: React.FC = () => {
   const [bool1, setBool1] = React.useState(true);
   const [zip, setZip] = React.useState("1670043");
   const [address, setAddress] = React.useState("東京都杉並区上荻");
-  const [h, setH] = React.useState<IH>({
+  const [h, setH] = React.useState<IHTML>({
     p: false,
     color: false,
     img: false,
     link: false,
     inline: false,
   });
-  const [s, setSelects] = React.useState({
+  const [s, setSelects] = React.useState<IJS>({
     jsColor: false,
     jQColor: false,
     bColor: false,
@@ -97,7 +121,7 @@ const Preview: React.FC = () => {
     obj: false,
   });
 
-  const [a, setA] = React.useState({
+  const [a, setA] = React.useState<IAjax>({
     ajax: false,
   });
 
@@ -108,66 +132,18 @@ const Preview: React.FC = () => {
   });
 
   const onTitleHTMLClick = () => {
-    if (!titleClick.html) {
-      setH({
-        p: true,
-        color: true,
-        img: true,
-        link: true,
-        inline: true,
-      });
-
-      // let result = { ...h };
-      // for (const key in h) {
-      //   result[key] = true;
-      // }
-      // setH(result);
-
-      setTitleClick({ ...titleClick, html: true });
-    } else {
-      setH({
-        p: false,
-        color: false,
-        img: false,
-        link: false,
-        inline: false,
-      });
-      setTitleClick({ ...titleClick, html: false });
-    }
+    setH(toggleHelpGroup(h, !titleClick.html));
+    setTitleClick({ ...titleClick, html: !titleClick.html });
   };
 
   const onTitleJSClick = () => {
-    if (!titleClick.html) {
-      setSelects({
-        ...s,
-        jsColor: true,
-        jQColor: true,
-        bColor: true,
-        bText: true,
-        fAlert: true,
-        mAlert: true,
-        iText: true,
-        bool: true,
-        loop: true,
-        obj: true,
-      });
-      setTitleClick({ ...titleClick, js: true });
-    } else {
-      setSelects({
-        ...s,
-        jsColor: false,
-        jQColor: false,
-        bColor: false,
-        bText: false,
-        fAlert: false,
-        mAlert: false,
-        iText: false,
-        bool: false,
-        loop: false,
-        obj: false,
-      });
-      setTitleClick({ ...titleClick, js: false });
-    }
+    setSelects(toggleHelpGroup(s, !titleClick.js));
+    setTitleClick({ ...titleClick, js: !titleClick.js });
+  };
+
+  const onTitleAjaxClick = () => {
+    setA(toggleHelpGroup(a, !titleClick.ajax));
+    setTitleClick({ ...titleClick, ajax: !titleClick.ajax });
   };
 
   return (
@@ -255,6 +231,7 @@ const Preview: React.FC = () => {
 
       <Container>
         <Item>
+          <Icon onClick={onTitleJSClick} />
           <h3>JavaScript</h3>
         </Item>
 
@@ -456,6 +433,7 @@ const Preview: React.FC = () => {
 
       <Container>
         <Item>
+          <Icon onClick={onTitleAjaxClick} />
           <h3>Ajax</h3>
         </Item>
         <Item select={a.ajax}>
