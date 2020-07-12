@@ -1,9 +1,8 @@
-import React, { Children } from "react";
+import React from "react";
 import ramen from "../img/ramen.png";
 import styled from "styled-components";
 import fetchJsonp from "fetch-jsonp";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import { FormControl } from "@material-ui/core";
 
 interface zipResponseResult {
   address1: string; //"東京都"
@@ -25,6 +24,7 @@ interface zipResponse {
 const Page = styled.div`
   padding: 0.5rem;
   margin: 0;
+  background: white;
   display: flex;
   justify-content: space-around;
   min-height: calc(100vh - 5rem);

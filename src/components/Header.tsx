@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { Button, Typography } from "@material-ui/core";
 
-const StyledHeader = styled.div`
-  height: "3rem";
-  width: 100vw;
+const StyledHeader = styled.div<{ visibility?: "visible" | "hidden" }>`
+  height: 3rem;
+  width: 100%;
   padding: 0 1rem 0 1rem;
-  border-width: 0 0 2px 0;
+  visibility: ${(props) => (props.visibility ? props.visibility : "visible")};
   &::after {
     color: white;
-    content: ".";
+    content: "";
     display: block;
     height: 2px;
     width: 100%;
@@ -24,15 +24,34 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Header: React.FC = () => {
+interface Props {
+  mode: Number;
+  setMode: Function;
+  visibility?: "visible" | "hidden";
+}
+
+const Header: React.FC<Props> = (props) => {
+  const handleOnButtonClick = () => {
+    switch (props.mode) {
+      case 0:
+        props.setMode(1);
+        break;
+      case 1:
+        props.setMode(0);
+        break;
+      default:
+        props.setMode(0);
+        break;
+    }
+  };
   return (
-    <StyledHeader>
+    <StyledHeader visibility={props.visibility}>
       <Container>
         <div>
           <Typography>プログラミング基礎 実技テスト</Typography>
         </div>
         <div>
-          <Button color="primary" style={{ marginRight: "2rem" }}>
+          <Button color="primary" onClick={handleOnButtonClick}>
             UPLOAD
           </Button>
         </div>
