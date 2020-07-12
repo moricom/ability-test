@@ -10,7 +10,6 @@ import Tutorial from "./components/Tutorial";
 
 //Redux
 import { Provider } from "react-redux";
-import store from "./store";
 
 const Wrapper = styled.div`
   max-width: 100vw;
@@ -18,24 +17,13 @@ const Wrapper = styled.div`
   background: linear-gradient(to right, orange, green);
 `;
 
-interface HerderProps {
-  visibility: "visible" | "hidden";
-}
-
 function App() {
-  const [mode, setMode] = React.useState<Number>(0);
-  const [hederVisibility, setHederVisibility] = React.useState<HerderProps>();
-  const handleClickModeButton = (mode: Number) => {
-    setMode(mode);
-  };
   return (
-    <Provider store={store}>
-      <Wrapper className="App">
-        <Bar mode={mode} setMode={handleClickModeButton} />
-        {mode === 0 ? <Tutorial /> : <></>}
-        {mode === 1 ? <Preview /> : <></>}
-      </Wrapper>
-    </Provider>
+    <Wrapper className="App">
+      <Bar />
+      <Tutorial />
+      <Preview />
+    </Wrapper>
   );
 }
 

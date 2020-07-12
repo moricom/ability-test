@@ -1,3 +1,8 @@
+## Memo
+
+Header の表示非表示のリダックスを作った。ページごとに設定する
+Router を入れて遷移できるようにする
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,6 +1,9 @@
 import React, { ReactComponentElement, ReactElement } from "react";
 import styled from "styled-components";
 
+import { useDispatch } from "react-redux";
+import { switchDisplay } from "../modules/HeaderModule";
+
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -182,10 +185,15 @@ const tutorialSteps = [
 ];
 
 const Tutorial: React.FC = () => {
+  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const maxSteps: number = tutorialSteps.length;
   const [showHelp, setShowHelp] = React.useState<boolean>(false);
   const [color, setColor] = React.useState<boolean>(false);
+
+  const handleClickStart = () => {
+    dispatch(switchDisplay(false));
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
