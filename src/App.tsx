@@ -1,29 +1,33 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import styled from "styled-components";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // import components
-import Bar from "./components/Header";
-import Preview from "./components/Preview";
-import Tutorial from "./components/Tutorial";
+import Preview from './components/Preview';
+import Tutorial from './components/Tutorial';
 
 //Redux
-import { Provider } from "react-redux";
+// import { Provider } from 'react-redux';
 
-const Wrapper = styled.div`
-  max-width: 100vw;
-  height: 100vh;
-  background: linear-gradient(to right, orange, green);
-`;
+const ROUTE = {
+  preview: {
+    path: '/preview',
+    component: Preview,
+  },
+  tutorial: {
+    path: '/tutorial',
+    component: Tutorial,
+  },
+};
 
 function App() {
   return (
-    <Wrapper className="App">
-      <Bar />
-      <Tutorial />
-      <Preview />
-    </Wrapper>
+    <Router>
+      <Switch>
+        <Route path={ROUTE.preview.path} component={ROUTE.preview.component} exact />
+        <Route path={ROUTE.tutorial.path} component={ROUTE.tutorial.component} exact />
+        <Route exact component={ROUTE.tutorial.component} />
+      </Switch>
+    </Router>
   );
 }
 

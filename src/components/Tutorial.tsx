@@ -1,19 +1,20 @@
-import React, { ReactComponentElement, ReactElement } from "react";
-import styled from "styled-components";
+import React, { ReactComponentElement, ReactElement } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { useDispatch } from "react-redux";
-import { switchDisplay } from "../modules/HeaderModule";
+import { useDispatch } from 'react-redux';
+import { switchDisplay } from '../modules/HeaderModule';
 
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import { List, ListItem, ListItemText } from "@material-ui/core";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import { List, ListItem, ListItemText } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 const StyledCard = styled(Card)`
   width: 50%;
@@ -29,10 +30,13 @@ const StyledCard = styled(Card)`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: calc(100% - 3rem);
+  min-height: 100vh;
+  /* height: calc(100% - 3rem); */
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(to right, orange, green);
+  text-align: center;
 `;
 
 interface ContentProps {
@@ -47,11 +51,11 @@ const Item = styled.div<{ select?: boolean }>`
   padding: 1rem 0 1rem 0;
   border: solid #bdbdbd;
   border-width: 1px;
-  background: ${(props) => (props.select ? "#E3F2FD" : "none")};
+  background: ${(props) => (props.select ? '#E3F2FD' : 'none')};
 `;
 
 const Icon = styled(InfoOutlinedIcon)<{ select?: boolean }>`
-  color: ${(props) => (props.select ? "gray" : "black")};
+  color: ${(props) => (props.select ? 'gray' : 'black')};
   position: absolute;
   top: 0;
   left: 0;
@@ -59,34 +63,41 @@ const Icon = styled(InfoOutlinedIcon)<{ select?: boolean }>`
   height: 1rem;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
 const tutorialSteps = [
   {
-    title: "チュートリアル",
-    subTitle: "初めに",
-    description: "実技テストを行います。全部で16問あります。",
+    title: 'チュートリアル',
+    subTitle: '初めに',
+    description: '実技テストを行います。全部で16問あります。',
     content: function () {
       return (
         <List>
           {[
-            ["HTML", "5問"],
-            ["JS", "10問"],
-            ["Ajax", "1問"],
+            ['HTML', '5問'],
+            ['JS', '10問'],
+            ['Ajax', '1問'],
           ].map(([category, qNum]) => (
             <ListItem key={qNum}>
               <ListItemText>
                 <div
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
                   }}
                 >
-                  <div style={{ width: "50%", textAlign: "center" }}>
-                    {category}
-                  </div>
-                  <div style={{ width: "50%", textAlign: "center" }}>
-                    {qNum}
-                  </div>
+                  <div style={{ width: '50%', textAlign: 'center' }}>{category}</div>
+                  <div style={{ width: '50%', textAlign: 'center' }}>{qNum}</div>
                 </div>
               </ListItemText>
             </ListItem>
@@ -96,10 +107,9 @@ const tutorialSteps = [
     },
   },
   {
-    title: "チュートリアル",
-    subTitle: "画面の説明",
-    description:
-      "問題ボックスの左上にあるアイコンを押すと問題文を見ることができます。",
+    title: 'チュートリアル',
+    subTitle: '画面の説明',
+    description: '問題ボックスの左上にあるアイコンを押すと問題文を見ることができます。',
     content: function (props: ContentProps) {
       return (
         <Item select={props.showHelp}>
@@ -115,9 +125,9 @@ const tutorialSteps = [
     },
   },
   {
-    title: "チュートリアル",
-    subTitle: "画面の説明",
-    description: "全ての問題ボックスを実際に実装してください",
+    title: 'チュートリアル',
+    subTitle: '画面の説明',
+    description: '全ての問題ボックスを実際に実装してください',
     content: function (props: ContentProps) {
       return (
         <Item select={props.showHelp}>
@@ -131,7 +141,7 @@ const tutorialSteps = [
             <p>文字を表示する</p>
           ) : (
             <>
-              <p style={props.color ? { color: "#4CAF50" } : {}}>テキスト</p>
+              <p style={props.color ? { color: '#4CAF50' } : {}}>テキスト</p>
               <button
                 onClick={() => {
                   props.setColor(!props.color);
@@ -146,10 +156,9 @@ const tutorialSteps = [
     },
   },
   {
-    title: "チュートリアル",
-    subTitle: "完了条件",
-    description:
-      "問題画面と全く同じものが完成したら終了です。タイトル部分も忘れずに！",
+    title: 'チュートリアル',
+    subTitle: '完了条件',
+    description: '問題画面と全く同じものが完成したら終了です。タイトル部分も忘れずに！',
     content: function (props: ContentProps) {
       return (
         <Item select={props.showHelp}>
@@ -159,25 +168,23 @@ const tutorialSteps = [
               props.setShowHelp(!props.showHelp);
             }}
           />
-          {props.showHelp ? (
-            <p>カテゴリー内の全ての問題文が表示されます</p>
-          ) : (
-            <p>Ajax</p>
-          )}
+          {props.showHelp ? <p>カテゴリー内の全ての問題文が表示されます</p> : <p>Ajax</p>}
         </Item>
       );
     },
   },
   {
-    title: "チュートリアル",
-    subTitle: "始める",
-    description: "ボタンを押して問題画面へ",
+    title: 'チュートリアル',
+    subTitle: '始める',
+    description: 'ボタンを押して問題画面へ',
     content: function (props: ContentProps) {
       return (
-        <div style={{ padding: "1rem" }}>
-          <Button variant="outlined" size="large" color="primary">
-            スタート
-          </Button>
+        <div style={{ padding: '1rem' }}>
+          <StyledLink to="/preview">
+            <Button variant="outlined" size="large" color="primary">
+              スタート
+            </Button>
+          </StyledLink>
         </div>
       );
     },
@@ -227,27 +234,19 @@ const Tutorial: React.FC = () => {
         </div>
         <div>
           <MobileStepper
-            style={{ background: "none" }}
+            style={{ background: 'none' }}
             steps={maxSteps}
             position="static"
             variant="text"
             activeStep={activeStep}
             nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
+              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
                 Next
                 <KeyboardArrowRight />
               </Button>
             }
             backButton={
-              <Button
-                size="small"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
                 <KeyboardArrowLeft />
                 Back
               </Button>
