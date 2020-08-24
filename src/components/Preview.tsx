@@ -141,7 +141,11 @@ const Preview: React.FC = () => {
               setH({ ...h, img: !h.img });
             }}
           />
-          {h.img ? <p>画像を表示する</p> : <img style={{ width: '10rem' }} src={ramen} />}
+          {h.img ? (
+            <p>画像を表示する</p>
+          ) : (
+            <img alt="ramen55" style={{ width: '10rem' }} src={ramen} />
+          )}
         </Item>
 
         <Item select={h.link}>
