@@ -19,6 +19,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 const StyledCard = styled(Card)`
   width: 50%;
   height: 50%;
+  min-height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,6 +31,7 @@ const StyledCard = styled(Card)`
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100vh;
   min-height: 100vh;
   /* height: calc(100% - 3rem); */
   display: flex;
@@ -181,7 +183,7 @@ const tutorialSteps = [
       return (
         <div style={{ padding: '1rem' }}>
           <StyledLink to="/preview">
-            <Button variant="outlined" size="large" color="primary">
+            <Button variant="contained" size="large" color="primary">
               スタート
             </Button>
           </StyledLink>
